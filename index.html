@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Калькулятор</title>
+</head>
+
+<body class="body">
+  <main class="container">
+    <fieldset id="container">
+      <!-- общая форма -->
+      <form name="calculator">
+
+        <!-- элемент дисплея калькулятора -->
+        <input id="display" type="text" name="display" readonly>
+        <br>
+        <!-- кнопки верхнего ряда -->
+        <input class="button digits" type="button" value="7">
+        <input class="button digits" type="button" value="8">
+        <input class="button digits" type="button" value="9">
+        <input class="button mathButtons" type="button" value="+">
+        <br>
+        <!-- кнопки среднего ряда -->
+        <input class="button digits" type="button" value="4">
+        <input class="button digits" type="button" value="5">
+        <input class="button digits" type="button" value="6">
+        <input class="button mathButtons" type="button" value="-">
+        <br>
+        <!-- кнопки нижнего ряда -->
+        <input class="button digits" type="button" value="1">
+        <input class="button digits" type="button" value="2">
+        <input class="button digits" type="button" value="3">
+        <input class="button mathButtons" type="button" value="x">
+        <br>
+        <!-- кнопки подвала -->
+        <input id="clearButton" class="button" type="button" value="C">
+        <input class="button digits" type="button" value="0">
+        <input class="button equalsButton" type="button" value="=">
+        <input class="button mathButtons" type="button" value="/">
+
+      </form>
+    </fieldset>
+  </main>
+  <script src="script.js"></script>
+</body>
+
+</html>
