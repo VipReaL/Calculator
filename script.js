@@ -4,6 +4,44 @@ let mathButtons = document.querySelectorAll('.mathButtons');
 let equalsButton = document.querySelector('.equalsButton');
 let clearButton = document.querySelector('#clearButton');
 
+
+let model = new function () {
+  this.arr = [];
+  this.all = '';
+}
+
+digits.forEach(button => {
+  button.addEventListener('click', clickDigits);
+})
+
+function clickDigits(event) {
+  display.value += event.target.value; // FIXME: del
+  model.all = model.all + event.target.value;
+}
+
+mathButtons.forEach(button => {
+  button.addEventListener('click', clickMathButton);
+})
+
+function clickMathButton(event) {
+  display.value += event.target.value; // FIXME: del
+  model.arr.push(model.all)
+  model.arr.push(event.target.value)
+}
+
+function view (arr) {
+
+  // arr.forEach(item => {
+
+  //   console.log(item)
+
+  // })
+
+}
+
+view(model.arr);
+
+/*
 let i = [];
 
 let j = '';
@@ -63,3 +101,4 @@ function equal() {
   }
 
 }
+*/
