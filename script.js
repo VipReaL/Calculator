@@ -1,9 +1,24 @@
 let display = document.querySelector('#display');
 let digits = document.querySelectorAll('.digits');
 let mathButtons = document.querySelectorAll('.mathButtons');
-let equalsButton = document.querySelector('.equalsButton');
 let clearButton = document.querySelector('#clearButton');
 
+class Observable {
+  constructor() {
+    this.observers = [];
+  }
+  subscribe(f) {
+    this.observers.push(f);
+  }
+  unsubscribe(f) {
+    this.observers = this.observers.filter(subscriber => subscriber !== f);
+  }
+  notify(data) {
+    this.observers.forEach(observer => observer(data));
+  }
+}
+
+const headingsObserver = new Observable();
 
 let model = new function () {
   this.arr = [];
@@ -15,7 +30,8 @@ digits.forEach(button => {
 })
 
 function clickDigits(event) {
-  display.value += event.target.value; // FIXME: del
+  headingsObserver.notify(event.target.value);
+
   model.all = model.all + event.target.value;
 }
 
@@ -24,81 +40,27 @@ mathButtons.forEach(button => {
 })
 
 function clickMathButton(event) {
-  display.value += event.target.value; // FIXME: del
-  model.arr.push(model.all)
-  model.arr.push(event.target.value)
-}
+  if (event.target.value !== "=") {
+    headingsObserver.notify(event.target.value);
 
-function view (arr) {
+    model.arr.push(model.all);
+    model.all = '';
 
-  // arr.forEach(item => {
-
-  //   console.log(item)
-
-  // })
-
-}
-
-view(model.arr);
-
-/*
-let i = [];
-
-let j = '';
-
-let k = [];
-
-clearButton.addEventListener('click', () => {
-  display.value = '';
-  i = [];
-  j = '';
-  k = [];
-});
-
-digits.forEach(digit_btn => {
-  digit_btn.addEventListener('click', addDisplay);
-})
-
-function addDisplay(event) {
-  display.value += event.target.value;
-
-  if (j) {
-    k.push(Number(event.target.value));
+    if (event.target.value === "x") {
+      model.arr.push("*");
+    } else {
+      model.arr.push(event.target.value);
+    }
   } else {
-    i.push(Number(event.target.value));
+    model.arr.push(model.all);
+    model.all = '';
+
+    display.value = eval(model.arr.join(''));
   }
-
 }
 
-mathButtons.forEach(math_btn => {
-  math_btn.addEventListener('click', addMath);
-})
-
-function addMath(event) {
-  j = event.target.value;
-  display.value += event.target.value;
+function view(arr) {
+  display.value += arr
 }
 
-
-
-equalsButton.addEventListener('click', equal);
-
-function equal() {
-
-  switch (j) {
-    case "+":
-      display.value = Number(i.join('')) + Number(k.join(''));
-      break;
-    case "-":
-      display.value = Number(i.join('')) - Number(k.join(''));
-      break;
-    case "x":
-      display.value = Number(i.join('')) * Number(k.join(''));
-      break;
-    case "/":
-      display.value = Number(i.join('')) / Number(k.join(''));
-      break;
-  }
-
-}
-*/
+headingsObserver.subscribe(view);
