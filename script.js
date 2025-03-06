@@ -18,11 +18,26 @@ class Observable {
   }
 }
 
-const headingsObserver = new Observable();
+const viewObserver = new Observable();
+const viewResultObserver = new Observable();
+
+function view(arr) {
+  display.value += arr;
+}
+
+function viewResult(arr) {
+  display.value = '';
+  display.value = arr;
+}
+
+viewObserver.subscribe(view);
+viewResultObserver.subscribe(viewResult);
 
 let model = new function () {
-  this.arr = [];
-  this.all = '';
+  this.variable = '';
+  this.numbers = [];
+  this.operators = [];
+  this.result = 0;
 }
 
 digits.forEach(button => {
@@ -30,9 +45,8 @@ digits.forEach(button => {
 })
 
 function clickDigits(event) {
-  headingsObserver.notify(event.target.value);
-
-  model.all = model.all + event.target.value;
+  viewObserver.notify(event.target.value);
+  model.variable += event.target.value;
 }
 
 mathButtons.forEach(button => {
@@ -40,27 +54,59 @@ mathButtons.forEach(button => {
 })
 
 function clickMathButton(event) {
-  if (event.target.value !== "=") {
-    headingsObserver.notify(event.target.value);
-
-    model.arr.push(model.all);
-    model.all = '';
-
-    if (event.target.value === "x") {
-      model.arr.push("*");
-    } else {
-      model.arr.push(event.target.value);
-    }
+  if (event.target.value !== '=') {
+    viewObserver.notify(event.target.value);
+    model.numbers.push(Number(model.variable));
+    model.variable = '';
+    model.operators.push(event.target.value)
   } else {
-    model.arr.push(model.all);
-    model.all = '';
 
-    display.value = eval(model.arr.join(''));
+    if (model.variable !== '') {
+      model.numbers.push(Number(model.variable));
+      model.variable = '';
+      model.result = calculate(model.operators, model.numbers);
+      viewResultObserver.notify(model.result);
+    }
+
+    model.variable = model.result;
+    model.numbers = [];
+    model.operators = [];
+    model.result = 0;
   }
 }
 
-function view(arr) {
-  display.value += arr
+function calculate(operators, numbers) {
+  try {
+    let result = numbers[0];
+
+    for (let i = 0; i < operators.length; i++) {
+      switch (operators[i]) {
+        case '+':
+          result += numbers[i + 1];
+          break;
+        case '-':
+          result -= numbers[i + 1];
+          break;
+        case 'x':
+          result *= numbers[i + 1];
+          break;
+        case '/':
+          result /= numbers[i + 1];
+          break;
+        default:
+          return "Недопустимая операция!";
+      }
+    }
+    return result;
+  } catch (error) {
+    return "Недопустимое выражение!";
+  }
 }
 
-headingsObserver.subscribe(view);
+clearButton.addEventListener('click', () => {
+  model.variable = '';
+  model.numbers = [];
+  model.operators = [];
+  model.result = 0;
+  display.value = '';
+});
