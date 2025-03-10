@@ -1,22 +1,9 @@
+import { Observable } from "./modules/Observable.mjs";
+
 let display = document.querySelector('#display');
 let digits = document.querySelectorAll('.digits');
 let mathButtons = document.querySelectorAll('.mathButtons');
 let clearButton = document.querySelector('#clearButton');
-
-class Observable {
-  constructor() {
-    this.observers = [];
-  }
-  subscribe(f) {
-    this.observers.push(f);
-  }
-  unsubscribe(f) {
-    this.observers = this.observers.filter(subscriber => subscriber !== f);
-  }
-  notify(data) {
-    this.observers.forEach(observer => observer(data));
-  }
-}
 
 const viewObserver = new Observable();
 const viewResultObserver = new Observable();
