@@ -4,42 +4,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="color-scheme" content="dark light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles/reset.css">
+  <link rel="stylesheet" href="./styles/variables.css">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/dark.css">
+  <link rel="stylesheet" href="./styles/light.css">
   <title>Калькулятор</title>
 </head>
 
-<body class="body">
+<body>
+  <header>
+    <nav class="header__theme-menu">
+      <ul class="header__theme-menu-list">
+        <li class="header__theme-menu-item">
+          <button class="button header__theme-menu-button header__theme-menu-button_type_light">
+            День
+          </button>
+        </li>
+        <li class="header__theme-menu-item">
+          <button class="button header__theme-menu-button header__theme-menu-button_active header__theme-menu-button_type_auto"
+            disabled>
+            Авто
+          </button>
+        </li>
+        <li class="header__theme-menu-item">
+          <button class="button header__theme-menu-button header__theme-menu-button_type_dark">
+            Неон
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
   <main class="container">
     <fieldset id="container">
       <!-- общая форма -->
-      <form name="calculator">
+      <form class="form" name="calculator">
 
         <!-- элемент дисплея калькулятора -->
-        <input id="display" type="text" name="display" readonly>
-        <br>
+        <input class="display" id="display" type="text" name="display" readonly>
+        <input class="displayOutput" id="displayOutput" type="text" name="displayOutput" readonly>
         <!-- кнопки верхнего ряда -->
-        <input class="button digits" type="button" value="7">
-        <input class="button digits" type="button" value="8">
-        <input class="button digits" type="button" value="9">
-        <input class="button mathButtons" type="button" value="+">
-        <br>
+        <input id="clearButton" class="button clearButton" type="button" value="C">
+        <input class="button mathButtons btn_l" type="button" value="(">
+        <input class="button mathButtons btn_r" type="button" value=")">
+        <input class="button mathButtons btn_divide" type="button" value="/">
+        <!-- кнопки второго ряда -->
+        <input class="button digits btn_7" type="button" value="7">
+        <input class="button digits btn_8" type="button" value="8">
+        <input class="button digits btn_9" type="button" value="9">
+        <input class="button mathButtons btn_mult" type="button" value="x">
         <!-- кнопки среднего ряда -->
-        <input class="button digits" type="button" value="4">
-        <input class="button digits" type="button" value="5">
-        <input class="button digits" type="button" value="6">
-        <input class="button mathButtons" type="button" value="-">
-        <br>
+        <input class="button digits btn_4" type="button" value="4">
+        <input class="button digits btn_5" type="button" value="5">
+        <input class="button digits btn_6" type="button" value="6">
+        <input class="button mathButtons btn_minus" type="button" value="-">
         <!-- кнопки нижнего ряда -->
-        <input class="button digits" type="button" value="1">
-        <input class="button digits" type="button" value="2">
-        <input class="button digits" type="button" value="3">
-        <input class="button mathButtons" type="button" value="x">
-        <br>
+        <input class="button digits btn_1" type="button" value="1">
+        <input class="button digits btn_2" type="button" value="2">
+        <input class="button digits btn_3" type="button" value="3">
+        <input class="button mathButtons btn_plus" type="button" value="+">
         <!-- кнопки подвала -->
-        <input id="clearButton" class="button" type="button" value="C">
-        <input class="button digits" type="button" value="0">
-        <input class="button mathButtons" type="button" value="=">
-        <input class="button mathButtons" type="button" value="/">
+        <input class="button mathButtons btn_point" type="button" value=".">
+        <input class="button digits btn_0" type="button" value="0">
+        <input id="deliteButton" class="button btn_del" type="button" value="del">
+        <input class="button mathButtons btn_equally" type="button" value="=">
 
       </form>
     </fieldset>

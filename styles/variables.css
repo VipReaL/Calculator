@@ -1,0 +1,11 @@
+:root {
+  --backgroundCalculator: oklch(20.69% 0.0098 285.51);
+  --digitsButton: oklch(30.79% 0.0162 280.39);
+  --clearButton: oklch(43.51% 0.0248 279.32);
+  --mathButton: oklch(56.62% 0.2331 271.37);
+  --hoverButton: oklch(56.62% 0.1373 45.26);
+  --hoverClearButton: oklch(56.62% 0.1373 17.18);
+  --text: oklch(100% 0 0);
+  --textGrey: oklch(100% 0 360 / 40%);
+  --icon: oklch(56.62% 0.2331 271.37);
+}

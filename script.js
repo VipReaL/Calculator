@@ -1,9 +1,59 @@
-import { Observable } from "./modules/Observable.mjs";
+import { getCalculer } from "./modules/api.mjs";
+import { Observable } from "./modules/observable.mjs";
 
-let display = document.querySelector('#display');
-let digits = document.querySelectorAll('.digits');
-let mathButtons = document.querySelectorAll('.mathButtons');
-let clearButton = document.querySelector('#clearButton');
+const themeButtons = document.querySelectorAll('.header__theme-menu-button');
+const display = document.querySelector('#display');
+const displayOutput = document.querySelector('#displayOutput');
+const digits = document.querySelectorAll('.digits');
+const mathButtons = document.querySelectorAll('.mathButtons');
+const clearButton = document.querySelector('#clearButton');
+
+themeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    themeButtons.forEach((btn) => {
+      btn.classList.remove('header__theme-menu-button_active');
+      btn.removeAttribute('disabled');
+    });
+    if (
+      [...button.classList].includes('header__theme-menu-button_type_light')
+    ) {
+      changeTheme('light');
+    } else if (
+      [...button.classList].includes('header__theme-menu-button_type_dark')
+    ) {
+      changeTheme('dark');
+    } else {
+      changeTheme('auto');
+    }
+    button.classList.add('header__theme-menu-button_active');
+    button.setAttribute('disabled', true);
+  });
+});
+
+function changeTheme(theme) {
+  document.body.className = 'page';
+  document.body.classList.add(`theme_${theme}`);
+  localStorage.setItem('theme', theme);
+}
+
+function initTheme() {
+  const theme = localStorage.getItem('theme');
+  if (theme) {
+    changeTheme(theme);
+    themeButtons.forEach((btn) => {
+      btn.classList.remove('header__theme-menu-button_active');
+      btn.removeAttribute('disabled');
+    });
+    document
+      .querySelector(`.header__theme-menu-button_type_${theme}`)
+      .classList.add('header__theme-menu-button_active');
+    document
+      .querySelector(`.header__theme-menu-button_type_${theme}`)
+      .setAttribute('disabled', true);
+  }
+}
+
+initTheme();
 
 const viewObserver = new Observable();
 const viewResultObserver = new Observable();
@@ -13,8 +63,8 @@ function view(arr) {
 }
 
 function viewResult(arr) {
-  display.value = '';
-  display.value = arr;
+  displayOutput.value = '';
+  displayOutput.value = arr;
 }
 
 viewObserver.subscribe(view);
@@ -96,4 +146,7 @@ clearButton.addEventListener('click', () => {
   model.operators = [];
   model.result = 0;
   display.value = '';
+  displayOutput.value = '';
 });
+
+getCalculer(encodeURIComponent('(2+2)*2-(1*1)')).then(data => console.log(data))

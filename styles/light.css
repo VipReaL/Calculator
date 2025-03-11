@@ -1,0 +1,29 @@
+.page.theme_light {
+  --backgroundCalculator: oklch(96.07% 0.0017 247.84);
+  --digitsButton: oklch(100% 0 0);
+  --clearButton: oklch(86.81% 0.0096 279.67);
+  --mathButton: oklch(56.62% 0.2331 271.37);
+  --hoverButton: oklch(56.62% 0.1373 45.26);
+  --hoverClearButton: oklch(56.62% 0.1373 17.18);
+  --text: oklch(0% 0 0);
+  --textGrey: oklch(0% 0 0 / 40%);
+  --icon: oklch(56.62% 0.2331 271.37);
+}
+
+/* Остальные стили */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --backgroundCalculator: oklch(96.07% 0.0017 247.84);
+    --digitsButton: oklch(100% 0 0);
+    --clearButton: oklch(86.81% 0.0096 279.67);
+    --mathButton: oklch(56.62% 0.2331 271.37);
+    --hoverButton: oklch(56.62% 0.1373 45.26);
+    --hoverClearButton: oklch(56.62% 0.1373 17.18);
+    --text: oklch(0% 0 0);
+    --textGrey: oklch(0% 0 0 / 40%);
+    --icon: oklch(56.62% 0.2331 271.37);
+  }
+}
+
+/* Остальные стили */

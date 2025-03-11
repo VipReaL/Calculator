@@ -1,0 +1,94 @@
+.page {
+  height: 100%;
+  background-color: #424242;
+  background-image: url(../images/fon.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: Tahoma;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#container {
+  flex-grow: 1;
+  align-content: flex-end;
+  background-color: var(--backgroundCalculator);
+  max-width: 1280px;
+  padding-inline: 16px;
+  padding-block-end: 66px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 16px;
+  justify-items: stretch;
+  align-items: center;
+}
+
+.display {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+.displayOutput {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.button {
+  background-color: var(--digitsButton);
+  color: var(--text);
+  min-width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  transition: .3s;
+}
+
+.mathButtons {
+  background-color: var(--mathButton);
+}
+
+.clearButton,
+.btn_del,
+.btn_l,
+.btn_r,
+.btn_point {
+  background-color: var(--clearButton);
+}
+
+.button:hover {
+  background-color: var(--hoverButton);
+}
+.clearButton:hover {
+  background-color: var(--hoverClearButton);
+}
+
+.display {
+  color: var(--textGrey);
+  font-size: 40px;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  
+  text-align: right;
+}
+
+.displayOutput {
+  color: var(--text);
+  font-size: 58px;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+
+  text-align: right;
+}
