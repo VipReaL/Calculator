@@ -10,8 +10,6 @@
   --icon: oklch(56.62% 0.2331 271.37);
 }
 
-/* Остальные стили */
-
 @media (prefers-color-scheme: light) {
   :root {
     --backgroundCalculator: oklch(96.07% 0.0017 247.84);
@@ -25,5 +23,3 @@
     --icon: oklch(56.62% 0.2331 271.37);
   }
 }
-
-/* Остальные стили */
