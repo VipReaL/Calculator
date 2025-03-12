@@ -2,8 +2,9 @@ import { getCalculer } from "./modules/api.mjs";
 import { Observable } from "./modules/observable.mjs";
 
 const themeButtons = document.querySelectorAll('.header__theme-menu-button');
-const display = document.querySelector('#display');
-const displayOutput = document.querySelector('#displayOutput');
+const form = document.querySelector('.form');
+const display = form.querySelector('#display');
+const displayOutput = form.querySelector('#displayOutput');
 const digits = document.querySelectorAll('.digits');
 const mathButtons = document.querySelectorAll('.mathButtons');
 const clearButton = document.querySelector('#clearButton');
@@ -59,6 +60,7 @@ const viewObserver = new Observable();
 const viewResultObserver = new Observable();
 
 function view(arr) {
+  display.value = '';
   display.value += arr;
 }
 
@@ -71,82 +73,54 @@ viewObserver.subscribe(view);
 viewResultObserver.subscribe(viewResult);
 
 let model = new function () {
-  this.variable = '';
-  this.numbers = [];
-  this.operators = [];
+  this.dataForCalculation = [];
   this.result = 0;
 }
 
-digits.forEach(button => {
-  button.addEventListener('click', clickDigits);
-})
+form.addEventListener('click', clickTracking);
 
-function clickDigits(event) {
-  viewObserver.notify(event.target.value);
-  model.variable += event.target.value;
-}
+function clickTracking(event) {
+  if (event.target.classList.contains('digits')) {
+    model.dataForCalculation.push(event.target.value);
+    viewObserver.notify(model.dataForCalculation.join(''));
+  }
 
-mathButtons.forEach(button => {
-  button.addEventListener('click', clickMathButton);
-})
-
-function clickMathButton(event) {
-  if (event.target.value !== '=') {
-    viewObserver.notify(event.target.value);
-    model.numbers.push(Number(model.variable));
-    model.variable = '';
-    model.operators.push(event.target.value)
-  } else {
-
-    if (model.variable !== '') {
-      model.numbers.push(Number(model.variable));
-      model.variable = '';
-      model.result = calculate(model.operators, model.numbers);
-      viewResultObserver.notify(model.result);
+  if (event.target.classList.contains('mathButtons')) {
+    if (isNaN(model.dataForCalculation[model.dataForCalculation.length - 1])) {
+      model.dataForCalculation.splice((model.dataForCalculation.length - 1), 1, signOperations(event.target.value));
+      viewObserver.notify(model.dataForCalculation.join(''));
+    } else {
+      model.dataForCalculation.push(signOperations(event.target.value))
+      viewObserver.notify(model.dataForCalculation.join(''));
     }
+  }
 
-    model.variable = model.result;
-    model.numbers = [];
-    model.operators = [];
-    model.result = 0;
+  if (event.target.classList.contains('btn_equally')) {
+    getCalculer(encodeURIComponent(model.dataForCalculation.join('')))
+      .then(data => {
+        model.result = data;
+        model.dataForCalculation = [];
+        model.dataForCalculation.push(String(data));
+        viewResultObserver.notify(model.result);
+
+        console.log(model);
+      })
   }
 }
 
-function calculate(operators, numbers) {
-  try {
-    let result = numbers[0];
-
-    for (let i = 0; i < operators.length; i++) {
-      switch (operators[i]) {
-        case '+':
-          result += numbers[i + 1];
-          break;
-        case '-':
-          result -= numbers[i + 1];
-          break;
-        case 'x':
-          result *= numbers[i + 1];
-          break;
-        case '/':
-          result /= numbers[i + 1];
-          break;
-        default:
-          return "Недопустимая операция!";
-      }
-    }
-    return result;
-  } catch (error) {
-    return "Недопустимое выражение!";
+function signOperations(params) {
+  switch (params) {
+    case '÷':
+      return '/';
+      break;
+    case 'x':
+      return '*';
+      break;
+    case '-':
+      return '-';
+      break;
+    case '+':
+      return '+';
+      break;
   }
 }
-
-clearButton.addEventListener('click', () => {
-  model.variable = '';
-  model.numbers = [];
-  model.operators = [];
-  model.result = 0;
-  display.value = '';
-  displayOutput.value = '';
-});
-
-getCalculer(encodeURIComponent('(2+2)*2-(1*1)')).then(data => console.log(data))
