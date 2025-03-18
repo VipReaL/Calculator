@@ -69,4 +69,9 @@ function clickTracking(event) {
         console.log(model);
       })
   }
+
+  if (event.target.classList.contains('btn_del')) {
+    model.dataForCalculation.pop();
+    viewObserver.notify(model.dataForCalculation.join(''));
+  }
 }
