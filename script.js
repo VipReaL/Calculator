@@ -50,15 +50,26 @@ function clickTracking(event) {
     if (isNaN(model.dataForCalculation[model.dataForCalculation.length - 1])) {
       model.dataForCalculation.splice((model.dataForCalculation.length - 1), 1, signOperations(event.target.value));
       viewObserver.notify(model.dataForCalculation.join(''));
+      viewResultObserver.notify('0');
     } else {
       model.dataForCalculation.push(signOperations(event.target.value))
       viewObserver.notify(model.dataForCalculation.join(''));
+      viewResultObserver.notify('0');
     }
   }
 
   if (event.target.classList.contains('bracket')) {
     model.dataForCalculation.push(event.target.value);
     viewObserver.notify(model.dataForCalculation.join(''));
+  }
+
+  if (event.target.classList.contains('btn_point')) {
+    if (!isNaN(model.dataForCalculation[model.dataForCalculation.length - 1])) {
+      model.dataForCalculation.push(event.target.value);
+      viewObserver.notify(model.dataForCalculation.join(''));
+      
+      console.log('btn_point ', model);
+    }
   }
 
   if (event.target.classList.contains('btn_equally')) {
@@ -79,10 +90,12 @@ function clickTracking(event) {
     if (model.dataForCalculation.length > 1) {
       model.dataForCalculation.pop();
       viewObserver.notify(model.dataForCalculation.join(''));
+      model.dataForDelete = [];
       model.result = 0;
       viewResultObserver.notify(model.result);
 
-      console.log('btn_del ', model);
+      console.log('btn_del > 1 ', model);
+
     } else if (model.dataForCalculation.length = 1) {
       model.dataForCalculation = model.dataForDelete;
       model.dataForCalculation.pop();
@@ -90,7 +103,7 @@ function clickTracking(event) {
       model.result = 0;
       viewResultObserver.notify(model.result);
 
-      console.log('btn_del ', model);
+      console.log('btn_del = 1 ', model);
     }
   }
 
