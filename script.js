@@ -1,5 +1,5 @@
 import { getCalculer } from "./modules/api.mjs";
-import { Observable } from "./modules/observable.mjs";
+import { Observable } from "./modules/observ.mjs";
 
 const themeButtons = document.querySelectorAll('.header__theme-menu-button');
 const form = document.querySelector('.form');
