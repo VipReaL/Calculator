@@ -32,6 +32,7 @@ viewResultObserver.subscribe(viewResult);
 
 let model = new function () {
   this.dataForCalculation = [];
+  this.dataForDelete = [];
   this.result = 0;
 }
 
@@ -41,6 +42,8 @@ function clickTracking(event) {
   if (event.target.classList.contains('digits')) {
     model.dataForCalculation.push(event.target.value);
     viewObserver.notify(model.dataForCalculation.join(''));
+
+    console.log('digits ', model);
   }
 
   if (event.target.classList.contains('mathButtons')) {
@@ -62,6 +65,7 @@ function clickTracking(event) {
     getCalculator(encodeURIComponent(model.dataForCalculation.join('')))
       .then(data => {
         model.result = data;
+        model.dataForDelete = model.dataForCalculation;
         model.dataForCalculation = [];
         model.dataForCalculation.push(String(data));
         viewResultObserver.notify(model.result);
@@ -71,12 +75,28 @@ function clickTracking(event) {
   }
 
   if (event.target.classList.contains('btn_del')) {
-    model.dataForCalculation.pop();
-    viewObserver.notify(model.dataForCalculation.join(''));
+    
+    if (model.dataForCalculation.length > 1) {
+      model.dataForCalculation.pop();
+      viewObserver.notify(model.dataForCalculation.join(''));
+      model.result = 0;
+      viewResultObserver.notify(model.result);
+
+      console.log('btn_del ', model);
+    } else if (model.dataForCalculation.length = 1) {
+      model.dataForCalculation = model.dataForDelete;
+      model.dataForCalculation.pop();
+      viewObserver.notify(model.dataForCalculation.join(''));
+      model.result = 0;
+      viewResultObserver.notify(model.result);
+
+      console.log('btn_del ', model);
+    }
   }
 
   if (event.target.classList.contains('clearButton')) {
     model.dataForCalculation = [];
+    model.dataForDelete = [];
     model.result = 0;
     viewObserver.notify(model.dataForCalculation.join(''));
     viewResultObserver.notify(model.result)
