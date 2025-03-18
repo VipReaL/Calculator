@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: 'http://api.mathjs.org/v4/?expr=',
+  baseUrl: 'https://api.mathjs.org/v4/?expr=',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -12,8 +12,8 @@ function getResponseData(res) {
   return res.json();
 } 
 
-function getCalculer(params) {
+function getCalculator(params) {
   return fetch(`${config.baseUrl}${params}`).then(res => getResponseData(res))
 }
 
-export { getCalculer };
+export { getCalculator };

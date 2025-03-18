@@ -13,4 +13,4 @@ class Observable {
   }
 }
 
-export {Observable};
+export { Observable };
