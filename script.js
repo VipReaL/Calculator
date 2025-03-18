@@ -7,6 +7,7 @@ import { initTheme } from "./modules/themeButtons.mjs";
 const form = document.querySelector('.form');
 const display = form.querySelector('#display');
 const displayOutput = form.querySelector('#displayOutput');
+// const brackets = form.querySelector('.bracket');
 // const digits = document.querySelectorAll('.digits');
 // const mathButtons = document.querySelectorAll('.mathButtons');
 // const clearButton = document.querySelector('#clearButton');
@@ -50,6 +51,11 @@ function clickTracking(event) {
       model.dataForCalculation.push(signOperations(event.target.value))
       viewObserver.notify(model.dataForCalculation.join(''));
     }
+  }
+
+  if (event.target.classList.contains('bracket')) {
+    model.dataForCalculation.push(event.target.value);
+    viewObserver.notify(model.dataForCalculation.join(''));
   }
 
   if (event.target.classList.contains('btn_equally')) {
