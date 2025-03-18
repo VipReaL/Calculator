@@ -66,12 +66,21 @@ function clickTracking(event) {
         model.dataForCalculation.push(String(data));
         viewResultObserver.notify(model.result);
 
-        console.log(model);
+        console.log('btn_equally ', model);
       })
   }
 
   if (event.target.classList.contains('btn_del')) {
     model.dataForCalculation.pop();
     viewObserver.notify(model.dataForCalculation.join(''));
+  }
+
+  if (event.target.classList.contains('clearButton')) {
+    model.dataForCalculation = [];
+    model.result = 0;
+    viewObserver.notify(model.dataForCalculation.join(''));
+    viewResultObserver.notify(model.result)
+
+    console.log('clearButton ', model);
   }
 }
